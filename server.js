@@ -10,7 +10,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'))
 
-mongoose.connect("mongodb+srv://ala:maradona@exercises.axzra.mongodb.net/exercises?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://ala:maradona2018@exercises.axzra.mongodb.net/exercises?retryWrites=true&w=majority");
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
@@ -28,12 +28,10 @@ app.post("/api/users",async (req,res)=>{
   try {
     let user = User({username: username});
     await user.save();
-    console.log(user);
     res.json(user);
   } catch {
     res.status(401).json({error: "server or database error"});
   }
-  
 });
 
 
