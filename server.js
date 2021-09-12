@@ -90,7 +90,7 @@ app.get("/api/users/:id/logs",async (req,res)=>{
     let logs = exercises.map(e=>{
       return {
         description: e.description,
-        duration: e.duration,
+        duration: parseInt(e.duration),
         date: e.date
       }
     });
