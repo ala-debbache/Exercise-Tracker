@@ -94,10 +94,30 @@ app.get("/api/users/:id/logs",async (req,res)=>{
         date: e.date
       }
     });
+    if(req.query.limit){
+      logs = logs.slice(0,req.query.limit);
+    }
+    if(req.query.from||req.query.to){
+      let fromDate = new Date(0);
+      let toDate = new Date();
+      if(req.query.from){
+        fromDate = new Date(req.query.from);
+      }
+      if(req.query.to){
+        toDate = new Date(req.query.to);
+      }
+      fromDate = fromDate.getTime();
+      toDate = toDate.getTime();
+      logs = logs.filter((e)=>{
+        let date = new Date(e.date).getTime();
+        return date >= fromDate && date <= toDate;
+      });
+    }
+    console.log(logs.length)
     res.json({
       username: user.username,
       _id: req.params.id,
-      count: exercises.length,
+      count: logs.length,
       log: [...logs]
     });
   } catch {
