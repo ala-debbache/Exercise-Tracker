@@ -98,7 +98,7 @@ app.get("/api/users/:id/logs",async (req,res)=>{
       username: user.username,
       _id: req.params.id,
       count: exercises.length,
-      log: [logs]
+      log: [...logs]
     });
   } catch {
     res.status(401).json({error: "server or database error"});
